@@ -13,3 +13,40 @@ firebase addition
 
 cd android && ./gradlew signingReport
 
+copy sha1 key of variant debug
+5E:8F:16:06:2E:A3:CD:2C:4A:0D:54:78:76:BA:A6:F3:8C:AB:F6:25
+
+paste in firebase app
+
+download services.json and paste in android/app folder
+
+add google-services plugin in android/build.gradle
+
+classpath 'com.google.gms:google-services:4.3.3'
+
+add apply plugin: 'com.google.gms.google-services' in android/app/build.gradle
+
+go to firebase and enable google sign in
+
+install and add this package in app.js
+
+yarn add @react-native-google-signin/google-signin
+yarn add @react-native-firebase/auth
+
+import auth from '@react-native-firebase/auth';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
+
+GoogleSignin.configure({
+      webClientId: 'YOUR_WEB_CLIENT_ID',
+});
+
+copy clint id from here:
+android/app/google-services.json file as the client/oauth_client/client_id property (the id ends with .apps.googleusercontent.com). Make sure to pick the client_id with client_type: 3
+
+
+looks like this : 
+700210532814-ohar08rsnu0ive9euujdma8ibposi2ur.apps.googleusercontent.com
+
+
+
+
