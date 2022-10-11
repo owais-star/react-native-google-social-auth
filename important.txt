@@ -1,0 +1,15 @@
+ssl for facebook
+
+generated with cmd not powerShell with the command
+::
+
+keytool -exportcert -alias androiddebugkey -keystore %HOMEPATH%\.android\debug.keystore | C:\Users\owais\openssl\bin\openssl.exe sha1 -binary | C:\Users\owais\openssl\bin\openssl.exe base64
+
+::
+this one worked:
+V8OykU6PfvCDETK6C1qwHNSlJx8=
+
+firebase addition
+
+cd android && ./gradlew signingReport
+
