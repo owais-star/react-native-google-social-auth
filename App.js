@@ -29,27 +29,67 @@ const App = () => {
     return auth().signInWithCredential(googleCredential);
   };
 
+  const signOut = async () => {
+    try {
+      await GoogleSignin.revokeAccess();
+      await auth().signOut();
+      console.log('User signed out!');
+      // Google Account disconnected from your app.
+      // Perform clean-up actions, such as deleting data associated with the disconnected account.
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
-    <SafeAreaView style={styles.backgroundStyle}>
-      <Text>App</Text>
-      <TouchableOpacity
-        onPress={() => {
-          googleSignIn()
-            .then(res => {
-              console.log(res);
-            })
-            .catch(err => {
-              console.log(err);
-            });
-        }}
-        style={styles.buttonStyle}>
-        <Text style={styles.textStyle}>Login with google</Text>
-      </TouchableOpacity>
-    </SafeAreaView>
+    <View style={styles.container}>
+      <View style={styles.logoutBtnContainer}>
+        <TouchableOpacity
+          onPress={() => {
+            signOut();
+          }}
+          style={[styles.buttonStyle, { marginHorizontal: 4 }]}>
+          <Text style={styles.textStyle}>Logout of Google</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            console.log('Logout of Facebook');
+          }}
+          style={[styles.buttonStyle, { marginHorizontal: 4 }]}>
+          <Text style={styles.textStyle}>Logout</Text>
+        </TouchableOpacity>
+      </View>
+      <SafeAreaView style={styles.backgroundStyle}>
+        <Text>App</Text>
+        <TouchableOpacity
+          onPress={() => {
+            googleSignIn()
+              .then(res => {
+                console.log(res.user);
+              })
+              .catch(err => {
+                console.log(err);
+              });
+          }}
+          style={styles.buttonStyle}>
+          <Text style={styles.textStyle}>Login with google</Text>
+        </TouchableOpacity>
+      </SafeAreaView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  logoutBtnContainer: {
+    height: 50,
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+  },
   backgroundStyle: {
     // backgroundColor: 'red',
     flex: 1,
